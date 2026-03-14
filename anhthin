@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PX SYSTEM</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PX SYSTEM</h1>
+
+<div class="login-box">
+
+<input type="text" placeholder="Username">
+
+<input type="password" placeholder="Password">
+
+<button onclick="login()">LOGIN</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

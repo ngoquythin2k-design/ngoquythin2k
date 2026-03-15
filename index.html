@@ -23,10 +23,10 @@ font-weight:500;
 width:340px;
 margin:20px auto;
 background:white;
-border-radius:16px;
+border-radius:18px;
 padding-bottom:25px;
 color:black;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 position:relative;
 }
 
@@ -35,65 +35,53 @@ position:relative;
 .top{
 background:#e3b64b;
 padding:18px;
-border-radius:14px 14px 0 0;
+border-radius:18px 18px 0 0;
 font-size:16px;
-position:relative;
 }
 
-/* 2 chấm hai bên */
+/* hai chấm nằm ở ranh giới vàng trắng */
 
-.top:before,
-.top:after{
+.card:before,
+.card:after{
 content:"";
 width:14px;
 height:14px;
 background:#2c2f48;
 border-radius:50%;
 position:absolute;
-top:50%;
-transform:translateY(-50%);
+top:70px;
 }
 
-.top:before{
+.card:before{
 left:-7px;
 }
 
-.top:after{
+.card:after{
 right:-7px;
 }
 
-/* thời gian */
-
 .time{
-margin-top:14px;
+margin-top:15px;
 font-size:16px;
 }
 
-/* QR */
-
 .qr img{
-width:260px;
-height:260px;
+width:270px;
+height:270px;
 image-rendering: pixelated;
 }
 
-/* refresh */
-
 .refresh{
-color:#888;
+color:#999;
 margin-top:10px;
 }
 
-/* countdown */
-
 .count{
-color:#2ecc71;
-font-size:24px;
+color:#32c26a;
+font-size:26px;
 margin-top:10px;
 font-weight:bold;
 }
-
-/* notice */
 
 .notice{
 width:340px;
@@ -124,7 +112,7 @@ line-height:22px;
 
 <div class="refresh">刷新二维码</div>
 
-<div class="count" id="count">00:59:18</div>
+<div class="count" id="count">01:00:00</div>
 
 </div>
 
@@ -136,27 +124,56 @@ line-height:22px;
 
 <script>
 
+/* thời gian hiện tại */
+
 function updateTime(){
-let d=new Date();
+let d=new Date()
 
 let t=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "
-+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
++d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()
 
-document.getElementById("time").innerHTML=t;
+document.getElementById("time").innerHTML=t
 }
+
+/* QR dày hơn */
 
 function updateQR(){
-let d=new Date().getTime();
+let d=new Date().getTime()
 
-document.getElementById("qr").src =
-"https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=V23080280-"+d;
+document.getElementById("qr").src=
+"https://api.qrserver.com/v1/create-qr-code/?size=270x270&ecc=H&data=V23080280-"+d
 }
 
-updateTime();
-updateQR();
+/* đếm ngược */
 
-setInterval(updateTime,1000);
-setInterval(updateQR,30000);
+let total=3600
+
+function countdown(){
+
+let h=Math.floor(total/3600)
+let m=Math.floor((total%3600)/60)
+let s=total%60
+
+document.getElementById("count").innerHTML=
+String(h).padStart(2,'0')+":"+
+String(m).padStart(2,'0')+":"+
+String(s).padStart(2,'0')
+
+total--
+
+if(total<0){
+total=3600
+updateQR()
+}
+
+}
+
+updateTime()
+updateQR()
+countdown()
+
+setInterval(updateTime,1000)
+setInterval(countdown,1000)
 
 </script>
 

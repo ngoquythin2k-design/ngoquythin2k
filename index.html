@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>QR Access</title>
 
 <style>
@@ -12,6 +13,22 @@ background: linear-gradient(#2c2f48,#1b1e2f);
 font-family: Arial;
 text-align:center;
 color:white;
+overflow:hidden;
+}
+
+/* nền chữ SECURITY */
+
+body::before{
+content:"SECURITY";
+position:fixed;
+font-size:140px;
+font-weight:900;
+color:rgba(255,255,255,0.04);
+transform:rotate(-25deg);
+top:45%;
+left:-20%;
+letter-spacing:20px;
+pointer-events:none;
 }
 
 h3{
@@ -26,7 +43,7 @@ background:white;
 border-radius:18px;
 padding-bottom:25px;
 color:black;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
+box-shadow:0 15px 35px rgba(0,0,0,0.5);
 position:relative;
 }
 
@@ -39,7 +56,7 @@ border-radius:18px 18px 0 0;
 font-size:16px;
 }
 
-/* hai chấm nằm ở ranh giới vàng trắng */
+/* chấm hai bên giao điểm màu vàng với trắng */
 
 .card:before,
 .card:after{
@@ -60,28 +77,38 @@ left:-7px;
 right:-7px;
 }
 
+/* thời gian */
+
 .time{
 margin-top:15px;
 font-size:16px;
 }
 
+/* QR siêu nét */
+
 .qr img{
 width:270px;
 height:270px;
-image-rendering: pixelated;
+image-rendering:pixelated;
 }
+
+/* refresh */
 
 .refresh{
 color:#999;
 margin-top:10px;
 }
 
+/* số xanh nhỏ hơn */
+
 .count{
-color:#32c26a;
-font-size:26px;
+color:#31c46c;
+font-size:22px;
 margin-top:10px;
-font-weight:bold;
+font-weight:600;
 }
+
+/* notice */
 
 .notice{
 width:340px;
@@ -124,7 +151,7 @@ line-height:22px;
 
 <script>
 
-/* thời gian hiện tại */
+/* thời gian */
 
 function updateTime(){
 let d=new Date()
@@ -135,13 +162,15 @@ let t=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "
 document.getElementById("time").innerHTML=t
 }
 
-/* QR dày hơn */
+/* QR siêu dày */
 
 function updateQR(){
+
 let d=new Date().getTime()
 
 document.getElementById("qr").src=
-"https://api.qrserver.com/v1/create-qr-code/?size=270x270&ecc=H&data=V23080280-"+d
+"https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&data=V23080280-"+d
+
 }
 
 /* đếm ngược */

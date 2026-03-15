@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Secure QR Pass</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(180deg,#3a3f58,#101528);
+color:white;
+text-align:center;
+}
+
+.container{
+margin-top:60px;
+}
+
+.name{
+font-size:22px;
+margin-bottom:20px;
+color:#f2e2a4;
+}
+
+.card{
+background:white;
+width:360px;
+margin:auto;
+border-radius:12px;
+overflow:hidden;
+color:black;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+.header{
+background:#e6b648;
+padding:16px;
+font-size:18px;
+font-weight:bold;
+}
+
+#time{
+font-size:20px;
+margin:15px;
+}
+
+#qrcode{
+padding-bottom:25px;
+}
+
+.notice{
+margin-top:40px;
+line-height:1.6;
+color:#e0d8a0;
+font-size:15px;
+padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="name">
+V23020143 (Đỗ Tiến Đạt)
+</div>
+
+<div class="card">
+
+<div class="header">
+Scan QR at security gate
+</div>
+
+<div id="time"></div>
+
+<div id="qrcode"></div>
+
+</div>
+
+<div class="notice">
+You are entering a secure area.<br>
+Camera usage may be restricted for security reasons.
+</div>
+
+</div>
+
+<script>
+
+let qr;
+
+function updateQR(){
+
+let now = new Date();
+
+let time =
+now.getFullYear()+"-"+
+String(now.getMonth()+1).padStart(2,'0')+"-"+
+String(now.getDate()).padStart(2,'0')+" "+
+String(now.getHours()).padStart(2,'0')+":"+
+String(now.getMinutes()).padStart(2,'0')+":"+
+String(now.getSeconds()).padStart(2,'0');
+
+document.getElementById("time").innerHTML=time;
+
+let data="EMP:V23020143|TIME:"+time;
+
+if(!qr){
+qr=new QRCode(document.getElementById("qrcode"),{
+text:data,
+width:300,
+height:300
+});
+}
+
+}
+
+updateQR();
+setInterval(updateQR,1000);
+
+</script>
+
+</body>
+</html>
